@@ -1,27 +1,69 @@
 ﻿using AbstractFactory.Factories;
+using AbstractFactory.Models;
+using System.Text;
 
-ConcreteFactorySmallDog smallDogProducts = new ConcreteFactorySmallDog();
-Console.WriteLine("Small Sized Dog Products");
-var collar3 = smallDogProducts.CreateDogCollar();
-var foodPot3 = smallDogProducts.CreateDogFoodPot();
-var waterPot3 = smallDogProducts.CreateDogWaterPot();
-Console.WriteLine($"Food capacity: { foodPot3.GetPotCapacityInMilligrams() } ");
-Console.WriteLine($"Collar size: { foodPot3.GetCollarSize(collar3) } ");
-Console.WriteLine($"Water capacity: { foodPot3.GetPotCapacityInMilliliters(waterPot3) } ");
+string ?sizeResponse = String.Empty;
+bool correctEntry = false;
+bool exit = false;
 
-Console.WriteLine();
+while (!exit)
+{
+    Console.WriteLine("Which's the dog's size? [S]mall or [M]edium?");
+    while (!correctEntry)
+    {
+        sizeResponse = Console.ReadLine();        
+        if (AcceptSizes().Contains(sizeResponse))
+            correctEntry = true;
+        else
+            Console.WriteLine("Try S or M");
+    }
+    Console.Write(ShowSelectedSize());
+    Console.Write(ShowProductsFamily());
+    ClearOptions();
+    AskExitProgram();
+}
 
+string ShowSelectedSize()
+{
+    var selected = sizeResponse == "S" ? "Small" : "Medium";
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.AppendLine();    
+    stringBuilder.AppendLine($"Selected {selected} dog's sized");    
+    stringBuilder.AppendLine();
+    return stringBuilder.ToString();
+}
 
-ConcreteFactoryMediumDog mediumDogProducts = new ConcreteFactoryMediumDog();
-Console.WriteLine("Medium Sized Dog Products");
-var collar2 = mediumDogProducts.CreateDogCollar();
-var foodPot2 = mediumDogProducts.CreateDogFoodPot();
-var waterPot2 = mediumDogProducts.CreateDogWaterPot();
-Console.WriteLine($"Food capacity: { foodPot2.GetPotCapacityInMilligrams() } ");
-Console.WriteLine($"Collar size: { foodPot2.GetCollarSize(collar2) } ");
-Console.WriteLine($"Water capacity: { foodPot2.GetPotCapacityInMilliliters(waterPot2) } ");
+string ShowProductsFamily()
+{
+    StringBuilder stringBuilder = new StringBuilder();
+    ComboDog comboDog = new ComboDog(sizeResponse);
+    stringBuilder.AppendLine($"Food capacity: { comboDog.abstractFoodPot.GetPotCapacityInMilligrams() } ");
+    stringBuilder.AppendLine($"Collar size: { comboDog.abstractFoodPot.GetCollarSize(comboDog.abstractDogCollar) } ");
+    stringBuilder.AppendLine($"Water capacity: { comboDog.abstractFoodPot.GetPotCapacityInMilliliters(comboDog.abstractWaterPot) } ");
+    return stringBuilder.ToString();
+}
 
+void ClearOptions()
+{
+    sizeResponse = String.Empty;
+    correctEntry = false;
+    exit = false;
+}
 
+void AskExitProgram()
+{
+    Console.WriteLine();
+    Console.WriteLine("[E]xit?");
+    if (Console.ReadLine() == "E")
+        exit = true;
+    else 
+        exit = false;
+}
 
-
-
+List<string> AcceptSizes()
+{
+    List<string> accept = new List<string>();
+    accept.Add("S");
+    accept.Add("M");
+    return accept;
+}

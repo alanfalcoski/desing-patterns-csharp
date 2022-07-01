@@ -11,11 +11,11 @@ while (!exit)
     Console.WriteLine("Which's the dog's size? [S]mall or [M]edium?");
     while (!correctEntry)
     {
-        sizeResponse = Console.ReadLine();        
+        sizeResponse = Console.ReadLine();
         if (AcceptSizes().Contains(sizeResponse))
             correctEntry = true;
         else
-            Console.WriteLine("Try S or M");
+            ShowAcceptedOptions();          
     }
     Console.Write(ShowSelectedSize());
     Console.Write(ShowProductsFamily());
@@ -66,4 +66,12 @@ List<string> AcceptSizes()
     accept.Add("S");
     accept.Add("M");
     return accept;
+}
+void ShowAcceptedOptions()
+{
+    Console.Write("Maybe Option ");
+    AcceptSizes().ForEach(p => {
+        Console.Write($"- {p} ");
+    });
+    Console.Write("?");
 }

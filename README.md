@@ -20,3 +20,7 @@ Builder: criação de objetos em partes
 
 No código está um exemplo de parcela (Installment) que pode ser criada com ou sem juros (taxes and fees). Dependendo do método chamado na classe "Director" um tipo de Installment será retornado. Completo (Full) ou sem taxas e juros (WithoutTaxesAndFees).
 
+---
+MonoState: criação de objetos que retornam sempre os mesmo valores
+
+No código um exemplo de configuração do APP criada. Independente de quantas vezes e onde a configuração for criada, e posteriormente chamar a função GET para puxar um atributo irá recuperar sempre o valor do último SET. O padrão Singleton é considerado um anti-pattern, uma vez que fere os princípios do SOLID, e o MonoState é uma possível solução.

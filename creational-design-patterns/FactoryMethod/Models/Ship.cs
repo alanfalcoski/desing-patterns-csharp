@@ -2,7 +2,7 @@
 
 namespace FactoryMethod.Models
 {
-    public class Ship : Transport
+    public class Ship : ITransport
     {
         public string ShipName { get; set; }
         public string Licence { get; set; }
@@ -17,7 +17,7 @@ namespace FactoryMethod.Models
 
         public void Deliver()
         {
-            Console.WriteLine($"Entrega do produto ocorre pela água. Navio {this.ShipName}");
+            Console.WriteLine($"Entrega do produto ocorre pela água. Navio {this.ShipName}, Licence: {Licence}, WeightCapacity: {WeightCapacity}");
         }
 
     }

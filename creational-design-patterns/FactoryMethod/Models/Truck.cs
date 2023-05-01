@@ -2,10 +2,10 @@
 
 namespace FactoryMethod.Models
 {
-    public class Truck : Transport
+    public class Truck : ITransport
     {
-        private int Identification;
-        private double WeightCapacity;
+        private readonly int Identification;
+        private readonly double WeightCapacity;
 
         public Truck(int identification, double weigthCapacity)
         {
